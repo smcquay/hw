@@ -21,7 +21,7 @@ func main() {
 		w.Header().Set("Content-Type", "application/json")
 		r := v{
 			Hostname: hn,
-			V:        "v0.0.2",
+			V:        "v0.0.3",
 		}
 		if err := json.NewEncoder(w).Encode(r); err != nil {
 			log.Printf("json: %+v", err)
