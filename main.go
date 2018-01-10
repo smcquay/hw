@@ -4,16 +4,25 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
+	"os"
 )
 
 type v struct {
-	V string `json:"version"`
+	Hostname string `json:"hostname"`
+	V        string `json:"version"`
 }
 
 func main() {
+	hn, err := os.Hostname()
+	if err != nil {
+		log.Fatalf("hostname: %+v", err)
+	}
 	http.HandleFunc("/", func(w http.ResponseWriter, req *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
-		r := v{"v0.0.2"}
+		r := v{
+			Hostname: hn,
+			V:        "v0.0.2",
+		}
 		if err := json.NewEncoder(w).Encode(r); err != nil {
 			log.Printf("json: %+v", err)
 		}
