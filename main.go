@@ -13,6 +13,7 @@ type v struct {
 }
 
 func main() {
+	panic("a bug")
 	hn, err := os.Hostname()
 	if err != nil {
 		log.Fatalf("hostname: %+v", err)
@@ -21,7 +22,7 @@ func main() {
 		w.Header().Set("Content-Type", "application/json")
 		r := v{
 			Hostname: hn,
-			V:        "v0.0.3",
+			V:        "v0.0.4",
 		}
 		if err := json.NewEncoder(w).Encode(r); err != nil {
 			log.Printf("json: %+v", err)
