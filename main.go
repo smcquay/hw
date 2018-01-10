@@ -13,7 +13,7 @@ type v struct {
 func main() {
 	http.HandleFunc("/", func(w http.ResponseWriter, req *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
-		r := v{"v0.0.1"}
+		r := v{"v0.0.2"}
 		if err := json.NewEncoder(w).Encode(r); err != nil {
 			log.Printf("json: %+v", err)
 		}
