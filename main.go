@@ -2,10 +2,13 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
 )
+
+const version = "v0.0.7"
 
 type v struct {
 	Hostname string `json:"hostname"`
@@ -21,10 +24,15 @@ func main() {
 		w.Header().Set("Content-Type", "application/json")
 		r := v{
 			Hostname: hn,
-			V:        "v0.0.5",
+			V:        version,
 		}
 		if err := json.NewEncoder(w).Encode(r); err != nil {
 			log.Printf("json: %+v", err)
+		}
+	})
+	http.HandleFunc("/env", func(w http.ResponseWriter, req *http.Request) {
+		for _, line := range os.Environ() {
+			fmt.Fprintf(w, "%v\n", line)
 		}
 	})
 	if err := http.ListenAndServe(":8080", nil); err != nil {
