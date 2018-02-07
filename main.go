@@ -8,7 +8,7 @@ import (
 	"os"
 )
 
-const version = "v0.0.7"
+const version = "v0.0.8"
 
 type v struct {
 	Hostname string `json:"hostname"`
@@ -35,7 +35,11 @@ func main() {
 			fmt.Fprintf(w, "%v\n", line)
 		}
 	})
+	http.HandleFunc("/live", health)
+	http.HandleFunc("/ready", health)
 	if err := http.ListenAndServe(":8080", nil); err != nil {
 		log.Fatalf("listen and serve: %v", err)
 	}
 }
+
+func health(w http.ResponseWriter, req *http.Request) {}
