@@ -12,7 +12,7 @@ import (
 	"mcquay.me/metrics"
 )
 
-const version = "v0.1.0"
+const version = "v0.1.1"
 
 type v struct {
 	Hostname string `json:"hostname"`
