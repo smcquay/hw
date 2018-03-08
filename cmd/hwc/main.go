@@ -15,6 +15,8 @@ import (
 	"mcquay.me/metrics"
 )
 
+const version = "v0.1.1"
+
 var success *prometheus.CounterVec
 
 type v struct {
@@ -57,8 +59,6 @@ func (s *state) update(target string) {
 		s.Unlock()
 	}
 }
-
-const version = "v0.1.1"
 
 func main() {
 	if len(os.Args) < 2 {
