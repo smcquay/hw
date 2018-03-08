@@ -15,8 +15,6 @@ import (
 	"mcquay.me/metrics"
 )
 
-const version = "v0.1.1"
-
 var success *prometheus.CounterVec
 
 type v struct {
@@ -90,7 +88,7 @@ func main() {
 
 	fetcher := state{
 		Hostname: hn,
-		V:        version,
+		V:        hw.Version,
 		Counts:   map[string]int{},
 	}
 	go fetcher.update(target)

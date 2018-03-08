@@ -13,8 +13,6 @@ import (
 	"mcquay.me/metrics"
 )
 
-const version = "v0.1.1"
-
 type v struct {
 	Hostname string `json:"hostname"`
 	V        string `json:"version"`
@@ -33,7 +31,7 @@ func main() {
 		w.Header().Set("Content-Type", "application/json")
 		r := v{
 			Hostname: hn,
-			V:        version,
+			V:        hw.Version,
 		}
 		if err := json.NewEncoder(w).Encode(r); err != nil {
 			log.Printf("json: %+v", err)

@@ -3,13 +3,13 @@ package main
 import (
 	"log"
 	"time"
-)
 
-const version = "v0.1.1"
+	"mcquay.me/hw"
+)
 
 func main() {
 	for {
-		log.Printf("hwl@%+v", version)
+		log.Printf("hwl@%+v", hw.Version)
 		time.Sleep(1 * time.Second)
 	}
 }
