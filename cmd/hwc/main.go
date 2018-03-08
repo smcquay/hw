@@ -9,10 +9,13 @@ import (
 	"sync"
 	"time"
 
+	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"mcquay.me/hw"
 	"mcquay.me/metrics"
 )
+
+var success *prometheus.CounterVec
 
 type v struct {
 	Hostname string `json:"hostname"`
@@ -38,9 +41,10 @@ func (s *state) update(target string) {
 		req.Close = true
 		httpResp, err := http.DefaultClient.Do(req)
 		if err != nil {
-			log.Printf("get: %+v", err)
+			success.WithLabelValues("false").Inc()
 			continue
 		}
+		success.WithLabelValues("true").Inc()
 		rv := v{}
 		if err := json.NewDecoder(httpResp.Body).Decode(&rv); err != nil {
 			panic(err)
@@ -65,6 +69,18 @@ func main() {
 	m, err := metrics.New("hwc")
 	if err != nil {
 		log.Fatalf("metrics: %v", err)
+	}
+
+	success = prometheus.NewCounterVec(
+		prometheus.CounterOpts{
+			Name: "hwc_success_count",
+			Help: "counts successes and failures of  fetch attempts",
+		},
+		[]string{"ok"},
+	)
+
+	if err := prometheus.Register(success); err != nil {
+		log.Fatalf("registering success: %v", err)
 	}
 
 	hn, err := os.Hostname()
