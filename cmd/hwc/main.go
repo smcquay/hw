@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/prometheus/client_golang/prometheus/promhttp"
+	"mcquay.me/hw"
 	"mcquay.me/metrics"
 )
 
@@ -87,6 +88,9 @@ func main() {
 			log.Printf("json: %+v", err)
 		}
 	}))
+
+	http.HandleFunc("/live", m.WrapFunc("/live", hw.OK))
+	http.HandleFunc("/ready", m.WrapFunc("/ready", hw.OK))
 
 	http.Handle("/metrics", promhttp.Handler())
 

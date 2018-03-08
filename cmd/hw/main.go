@@ -9,6 +9,7 @@ import (
 	"os"
 
 	"github.com/prometheus/client_golang/prometheus/promhttp"
+	"mcquay.me/hw"
 	"mcquay.me/metrics"
 )
 
@@ -53,12 +54,10 @@ func main() {
 		code := codes[rand.Intn(len(codes))]
 		w.WriteHeader(code)
 	}))
-	http.HandleFunc("/live", m.WrapFunc("/live", ok))
-	http.HandleFunc("/ready", m.WrapFunc("/ready", ok))
+	http.HandleFunc("/live", m.WrapFunc("/live", hw.OK))
+	http.HandleFunc("/ready", m.WrapFunc("/ready", hw.OK))
 	http.Handle("/metrics", promhttp.Handler())
 	if err := http.ListenAndServe(":8080", nil); err != nil {
 		log.Fatalf("listen and serve: %v", err)
 	}
 }
-
-func ok(w http.ResponseWriter, req *http.Request) {}
