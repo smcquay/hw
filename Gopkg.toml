@@ -30,8 +30,8 @@
   version = "0.8.0"
 
 [[constraint]]
-  branch = "master"
   name = "mcquay.me/metrics"
+  version = "1.0.0"
 
 [prune]
   go-tests = true
