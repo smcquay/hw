@@ -62,7 +62,7 @@ func main() {
 	}
 	target := os.Args[1]
 
-	m, err := metrics.New("hw")
+	m, err := metrics.New("hwc")
 	if err != nil {
 		log.Fatalf("metrics: %v", err)
 	}
