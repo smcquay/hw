@@ -2,7 +2,10 @@ package hw
 
 import "net/http"
 
+// Version is version.
 var Version = "unset"
+
+// Git exists so we can override it
 var Git = "unset"
 
 // OK simply return 200
