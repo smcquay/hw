@@ -17,11 +17,6 @@ import (
 
 var success *prometheus.CounterVec
 
-type v struct {
-	Hostname string `json:"hostname"`
-	V        string `json:"version"`
-}
-
 type state struct {
 	Hostname string `json:"hostname"`
 	V        string `json:"version"`
@@ -45,7 +40,7 @@ func (s *state) update(target string) {
 			continue
 		}
 		success.WithLabelValues("true").Inc()
-		rv := v{}
+		rv := hw.V{}
 		if err := json.NewDecoder(httpResp.Body).Decode(&rv); err != nil {
 			panic(err)
 		}

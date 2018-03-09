@@ -13,11 +13,6 @@ import (
 	"mcquay.me/metrics"
 )
 
-type v struct {
-	Hostname string `json:"hostname"`
-	V        string `json:"version"`
-}
-
 func main() {
 	m, err := metrics.New("hw")
 	if err != nil {
@@ -29,7 +24,7 @@ func main() {
 	}
 	http.HandleFunc("/", m.WrapFunc("/", func(w http.ResponseWriter, req *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
-		r := v{
+		r := hw.V{
 			Hostname: hn,
 			V:        hw.Version,
 		}
