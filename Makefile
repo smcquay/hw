@@ -33,3 +33,8 @@ bin:
 .PHONY: clean
 clean:
 	@rm -fv bin/{hw,hwl,hwc}
+
+.PHONY: lint
+lint:
+	@golint $(shell go list mcquay.me/hw/...)
+	@go vet $(shell go list mcquay.me/hw/...)
