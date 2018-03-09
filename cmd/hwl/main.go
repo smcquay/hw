@@ -9,7 +9,7 @@ import (
 
 func main() {
 	for {
-		log.Printf("hwl@%+v", hw.Version)
+		log.Printf("hwl version=%q, git=%q", hw.Version, hw.Git)
 		time.Sleep(1 * time.Second)
 	}
 }
