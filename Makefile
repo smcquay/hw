@@ -44,3 +44,9 @@ docker-build: bin/hw bin/hwc bin/hwl
 	docker build -f cmd/hw/Dockerfile  . -t smcquay/hw:$(VERSION)$(V_DIRTY)
 	docker build -f cmd/hwc/Dockerfile . -t smcquay/hwc:$(VERSION)$(V_DIRTY)
 	docker build -f cmd/hwl/Dockerfile . -t smcquay/hwl:$(VERSION)$(V_DIRTY)
+
+.PHONY: docker-push
+docker-push:
+	docker push smcquay/hw:$(VERSION)$(V_DIRTY)
+	docker push smcquay/hwc:$(VERSION)$(V_DIRTY)
+	docker push smcquay/hwl:$(VERSION)$(V_DIRTY)
