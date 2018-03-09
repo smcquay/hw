@@ -20,6 +20,7 @@ var success *prometheus.CounterVec
 type state struct {
 	Hostname string `json:"hostname"`
 	V        string `json:"version"`
+	G        string `json:"git"`
 
 	sync.RWMutex
 	Counts map[string]int `json:"counts"`
@@ -84,6 +85,7 @@ func main() {
 	fetcher := state{
 		Hostname: hn,
 		V:        hw.Version,
+		G:        hw.Git,
 		Counts:   map[string]int{},
 	}
 	go fetcher.update(target)

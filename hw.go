@@ -3,6 +3,7 @@ package hw
 import "net/http"
 
 var Version = "unset"
+var Git = "unset"
 
 // OK simply return 200
 func OK(w http.ResponseWriter, req *http.Request) {}
@@ -11,4 +12,5 @@ func OK(w http.ResponseWriter, req *http.Request) {}
 type V struct {
 	Hostname string `json:"hostname"`
 	V        string `json:"version"`
+	G        string `json:"git"`
 }

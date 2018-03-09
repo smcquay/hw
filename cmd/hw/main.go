@@ -27,6 +27,7 @@ func main() {
 		r := hw.V{
 			Hostname: hn,
 			V:        hw.Version,
+			G:        hw.Git,
 		}
 		if err := json.NewEncoder(w).Encode(r); err != nil {
 			log.Printf("json: %+v", err)
