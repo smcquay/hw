@@ -49,7 +49,7 @@ func (s *state) update(target string) {
 			panic(err)
 		}
 		s.Lock()
-		s.Counts[rv.Hostname] += 1
+		s.Counts[rv.Hostname]++
 		s.Unlock()
 	}
 }
@@ -95,7 +95,7 @@ func main() {
 
 		fetcher.RLock()
 		defer fetcher.RUnlock()
-		if err := json.NewEncoder(w).Encode(fetcher); err != nil {
+		if err := json.NewEncoder(w).Encode(&fetcher); err != nil {
 			log.Printf("json: %+v", err)
 		}
 	}))
