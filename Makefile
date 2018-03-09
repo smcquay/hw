@@ -6,21 +6,21 @@ V_DIRTY := $(shell git describe --exact-match HEAD 2> /dev/null > /dev/null || e
 GIT     := $(shell git rev-parse --short HEAD)
 DIRTY   := $(shell git diff-index --quiet HEAD 2> /dev/null > /dev/null || echo "-dirty")
 
-bin/hw: cmd/hw/main.go bin
+bin/hw: $(shell ls *.go) cmd/hw/main.go bin
 	@echo hw
 	@go build -ldflags \
 		"-X mcquay.me/hw.Version=$(VERSION)$(V_DIRTY) \
 		 -X mcquay.me/hw.Git=$(GIT)$(DIRTY)" \
 		 -v -o bin/hw ./cmd/hw
 
-bin/hwc: cmd/hwc/main.go bin
+bin/hwc: $(shell ls *.go ) cmd/hwc/main.go bin
 	@echo hwc
 	@go build -ldflags \
 		"-X mcquay.me/hw.Version=$(VERSION)$(V_DIRTY) \
 		 -X mcquay.me/hw.Git=$(GIT)$(DIRTY)" \
 		 -v -o bin/hwc ./cmd/hwc
 
-bin/hwl: cmd/hwl/main.go bin
+bin/hwl: $(shell ls *.go) cmd/hwl/main.go bin
 	@echo hwl
 	@go build -ldflags \
 		"-X mcquay.me/hw.Version=$(VERSION)$(V_DIRTY) \
