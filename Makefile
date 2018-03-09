@@ -26,3 +26,7 @@ bin/hwl: cmd/hwl/main.go bin
 
 bin:
 	mkdir bin
+
+.PHONY: clean
+clean:
+	@rm -fv bin/{hw,hwl,hwc}
