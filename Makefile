@@ -5,6 +5,7 @@ VERSION := $(shell git describe --tags 2> /dev/null || echo "unreleased")
 V_DIRTY := $(shell git describe --exact-match HEAD 2> /dev/null > /dev/null || echo "-unreleased")
 GIT     := $(shell git rev-parse --short HEAD)
 DIRTY   := $(shell git diff-index --quiet HEAD 2> /dev/null > /dev/null || echo "-dirty")
+UNTRK   := $(shell git ls-files --other --exclude-standard --directory | grep . > /dev/null && echo "-untracked-files")
 
 bin/hw: vendor $(shell ls *.go) cmd/hw/main.go bin
 	@echo hw
@@ -44,9 +45,9 @@ lint:
 
 .PHONY: docker-build
 docker-build: bin/hw bin/hwc bin/hwl
-	docker build -f cmd/hw/Dockerfile  . -t  smcquay/hw:$(VERSION)$(V_DIRTY)$(DIRTY)
-	docker build -f cmd/hwc/Dockerfile . -t smcquay/hwc:$(VERSION)$(V_DIRTY)$(DIRTY)
-	docker build -f cmd/hwl/Dockerfile . -t smcquay/hwl:$(VERSION)$(V_DIRTY)$(DIRTY)
+	docker build -f cmd/hw/Dockerfile  . -t  smcquay/hw:$(VERSION)$(V_DIRTY)$(DIRTY)$(UNTRK)
+	docker build -f cmd/hwc/Dockerfile . -t smcquay/hwc:$(VERSION)$(V_DIRTY)$(DIRTY)$(UNTRK)
+	docker build -f cmd/hwl/Dockerfile . -t smcquay/hwl:$(VERSION)$(V_DIRTY)$(DIRTY)$(UNTRK)
 
 .PHONY: docker-push
 docker-push:
